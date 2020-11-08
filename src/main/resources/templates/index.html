@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Plaid</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+
+<button id="link-button">Link Account</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script type="text/javascript">
+
+(async function($) {
+  console.log("====inside function start=======");
+  var handler = Plaid.create({
+    token: await $.post('/get_link_token'),
+    onLoad: function() {
+        console.log("=======inside onLoad=======");
+    },
+    onSuccess: function(public_token, metadata) {
+      console.log("=================success===========");
+      $.post('/get_access_token', {
+        public_token: public_token,
+      });
+    }
+  });
+
+  $('#link-button').on('click', function(e) {
+    handler.open();
+  });
+})(jQuery);
+</script>
+</body>
+</html>

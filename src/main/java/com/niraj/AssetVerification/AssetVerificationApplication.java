@@ -1,0 +1,13 @@
+package com.niraj.AssetVerification;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class AssetVerificationApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(AssetVerificationApplication.class, args);
+	}
+
+}
